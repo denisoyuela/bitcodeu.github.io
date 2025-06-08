@@ -4,43 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bit codeu contabilidad</title>
-    <link rel="stylesheet" href="style.css">
+    
 </head>
-<body>
-   
+<tbody>
     <div class="login-container">
-
-        <div id="buttons"> 
-            <img src="BDU.png" width="400px" class="img" >
-          
-        </div>
-       
-        
-        <form id="loginForm">
+        <h1>REGISTRARSE</h1>
+        <form id="registerForm">
             <div class="form-group">
-                <label for="email"></label>
-                <input type="email" id="email" name="email" placeholder="Usuario" required>
-                <div class="error-message" id="emailError"></div>
+                <label for="regName"></label>
+                <input type="text" id="regName" name="name" placeholder="ID usuario" required>
             </div>
             
             <div class="form-group">
-                <label for="password"></label>
-                <input type="password" id="password" name="password" placeholder="Contraseña" required>
-                <div class="error-message" id="passwordError"></div>
+                <label for="regEmail"></label>
+                <input type="Email" id="regEmail" name="email" placeholder="Correo Electrónico" required>
+                <div class="error-message" id="regEmailError"></div>
             </div>
             
-            <button type="submit" class="btn">Ingresar al Sistema...</button>
+            <div class="form-group">
+                <label for="regPassword"></label>
+                <input type="password" id="regPassword" name="password" placeholder="Contraseña" required>
+                <div class="password-strength">
+                    <span id="strengthText">Seguridad: </span>
+                    <span id="strengthMeter"></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="regConfirmPassword"></label>
+                <input type="password" id="regConfirmPassword" name="confirmPassword" placeholder="Confirmar contraseña" required>
+                <div class="error-message" id="confirmPasswordError"></div>
+            </div>
+            
+            <button type="submit" class="btn">Registrarse</button>
             
             <div class="form-footer">
-                <p>¿No tienes una cuenta? <a href="register.html">Regístrate aquí</a></p>
-                <p><a href="#" id="forgotPassword"></a></p>
+                <p>¿No tienes una cuenta? <a href="index.html">Registrar usuario</a></p>
             </div>
         </form>
     </div>
     
     <script src="auth.js"></script>
     <style>
-       * {
+        * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -49,7 +55,7 @@
 
 body {
     font-family: Arial,sans-serif;
-    background:transparent;
+    background: url(https://4kwallpapers.com/images/walls/thumbs_3t/3773.jpg);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,29 +64,26 @@ body {
 }
 
 
-#buttons{
-    float: center;
-    margin-right: 12px;
-}
-
-
-
 .login-container,.dashboard-container {
+    
     backdrop-filter: blur(5px);
-    padding: 1rem;
+    padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
     width: 100%;
-    max-width: 470px;
-    background:#3498db;;
+    max-width: 400px;
+    background:rgba(255, 255, 255, 0.1) ;
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.2);
-  
 }
 
 
 
-
+h1 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #3d96d1 ;
+}
 
 .form-group {
     margin-bottom: 1rem;
@@ -96,22 +99,21 @@ label {
 }
 
 input {
-    width: 60%;
-    padding: 0.19rem;
+    width: 70%;
+    padding: 0.50rem;
     border: 1px solid #af9d9d ;
+    border-radius: 4px;
+    font-size: 0.rem;
    background-color: #ffffff;
     color:#ffffff;
+   display: block;
     margin: 0 auto;
-   float: center;
 }
+
 
 input:focus {
     outline: none;
     border-color: #ffffff;
-    background: transparent;
-}
-
-input:hover{
     background: transparent;
 }
 
@@ -121,15 +123,18 @@ input:hover{
     background-color: #3498db;
     color: white;
     border: none;
+    border-radius: 4px;
     font-size: 1rem;
     cursor: pointer;
-    margin-top: 1rem;
+    margin-top: 1rem;  
 }
 
 .btn:hover {
     background:#ffffff;
     color: #1ca0dd;
-    box-shadow: 0px 15px 20px rgba(255, 255, 255, 0.4)
+    transform: translateY(-7px);
+    box-shadow: 0px 15px 20px rgba(56, 59, 241, 0.4)
+   
 }
 
 .form-footer {
@@ -140,14 +145,13 @@ input:hover{
 }
 
 .form-footer a {
-    color: #030303;
-    text-decoration:none;
+    color: #44a3e2;
+    text-decoration: none;
 }
 
 .form-footer a:hover {
     text-decoration: underline;
-   color: #ffffff;
-   box-shadow: 0px 15px 20px rgba(243, 243, 243, 0.4)
+    color: #ffffff;
 }
 
 .error-message {
@@ -161,15 +165,16 @@ input:hover{
     margin-top: 0.25rem;
     font-size: 0.8rem;
     color: #ffffff;
+    
 }
 
 #strengthMeter {
     color: #ffffff;
     font-weight: bold;
-} 
+}
     </style>
-   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
     // Verificar si estamos en la página de login
     if (document.getElementById('loginForm')) {
         const loginForm = document.getElementById('loginForm');
@@ -289,7 +294,7 @@ input:hover{
         // Logout
         document.getElementById('logoutBtn').addEventListener('click', function() {
             localStorage.removeItem('currentUser');
-            window.location.href = 'dashboard.html';
+            window.location.href = 'file:///media/fuse/drivefs-4bd2ef3085bf44fd59aadc18cf5dbd68/root/Chromebook%20Wallpaper/contab/contavilida2/indexx.html';
         });
     }
     
@@ -323,11 +328,10 @@ input:hover{
         } else if (strength === 2) {
             return { text: 'Moderada', color: '#f39c12' };
         } else {
-            return { text: 'Fuerte', color: 'rgb(36, 13, 247)' };
+            return { text: 'segura', color: '#fff' };
         }
     }
 });
-   </script>
-</body>
+    </script>
+</tbody>
 </html>
-

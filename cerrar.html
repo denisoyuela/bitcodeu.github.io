@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema - Cargando</title>
+    <style>
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background:#fff;
+         
+        }
+        
+        .loading-container {
+            width: 350px;
+            padding: 12px 0;
+            background:#ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+    
+        
+        .loading-bar-container {
+            height: 20px;
+            background-color: #ffffff;
+            border-radius: 1px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .loading-bar {
+            height: 100%;
+            width: 0%;
+            background:#39d624;
+            border-radius: 1px;
+            transition: width 0.5s ease;
+        }
+        
+        .loading-text {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #747677;
+            height: 20px;
+            text-align: center;
+        }
+        
+        .progress {
+            font-family: 'Consolas', monospace;
+            font-size: 13px;
+            color: #39d624;
+            text-align: center;
+        }
+        
+        .spinner {
+            margin: 20px auto;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgb(201, 193, 192);
+            border-radius: 50%;
+            border-top-color: #575555;
+            animation: spin 1s ease-in-out infinite;
+            display: none;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(700deg); }
+        }
+
+        #window{
+    width: 340px;
+    background:rgba(255, 255, 255, 0.1) ;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    padding: 12px 0;
+font-family: verdana,sans-serif;
+color: #333;
+
+}
+
+#buttons{
+    float: right;
+    margin-right: 12px;
+}
+
+#buttons a {
+width: 16px;
+height: 16px;
+border-radius: 50%;
+display: inline-block;
+}
+
+#minimize {
+    background: #3c6;
+}
+
+#resize{
+background: #cc3;
+}
+
+#close{
+    background: #c33;
+}
+
+#title{
+    margin-left: px;
+    color: #569cd6;
+}
+
+
+
+    </style>
+</head>
+<body>
+
+        <div id="window">
+        <div id="buttons"> 
+
+        <a href="#" id="minimize"></a>
+        <a href="#" id="resize"></a>
+        <a href="#" id="close"></a>
+    </div>
+
+        <div id="title">BIT CODEU</div
+
+            <div id=" loading-container"> 
+
+            <div class="loading-text" id="status">Inicializando sistema...</div>
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+   
+        <div class="progress" id="progress">0%</div>
+        <div class="spinner" id="spinner"></div>
+           
+    </div>
+  
+
+
+    <script>
+        // Elementos del DOM
+        const loadingBar = document.getElementById('loadingBar');
+        const progressText = document.getElementById('progress');
+        const statusText = document.getElementById('status');
+        const spinner = document.getElementById('spinner');
+        
+        // Simulación de carga
+        function simulateLoad() {
+            let progress = 0;
+            const totalSteps = 100;
+            const speed = 30; // ms entre actualizaciones
+            
+            const interval = setInterval(() => {
+                progress += 1;
+                loadingBar.style.width = progress + '%';
+                progressText.textContent = progress + '%';
+                
+                // Actualizar mensajes según progreso
+                updateStatus(progress);
+                
+                // Cuando llegue al 100%
+                if (progress >= totalSteps) {
+                    clearInterval(interval);
+                    loadingComplete();
+                }
+            }, speed);
+        }
+        
+        // Actualizar mensajes de estado
+        function updateStatus(progress) {
+            if (progress < 20) {
+                statusText.textContent = "Finalizando...";
+            } else if (progress < 40) {
+                statusText.textContent = "Cerrando seccion...";
+            } else if (progress < 60) {
+                statusText.textContent = "Cerrando seccion...";
+            } else if (progress < 80) {
+                statusText.textContent = "Cerrando BIT CODEU contabilidad..." ;
+            } else if (progress < 80) {
+                statusText.textContent = "Finalizando carga...";
+            }
+        }
+        
+        // Cuando la carga se completa
+        function loadingComplete() {
+            statusText.textContent = "¡finalizado!";
+            progressText.textContent = "finalizacion completa...";
+            loadingBar.style.background = "#39d624";
+         
+            // Mostrar spinner
+            spinner.style.display = "block";
+            
+            // Redirigir después de 1.5 segundos
+            setTimeout(() => {
+                // Cambia esta URL por la de tu sistema real
+                window.location.href = "loading.html";
+            }, 1500);
+        }
+        
+        // Iniciar la carga automáticamente al cargar la página
+        window.onload = function() {
+            // Pequeño delay para efecto visual
+            setTimeout(simulateLoad, 500);
+        };
+    </script>
+</body>
+</html>

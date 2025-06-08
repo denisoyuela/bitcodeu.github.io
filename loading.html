@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIT CODEU</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+        }
+        
+        .container {
+            width: 350px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .loading-container {
+            transition: all 0.5s ease;
+           
+            background-color: #ffffff;
+            
+           
+           
+        }
+        
+        .loading-bar {
+            width: 100%;
+            height: 27px;
+            background-color: #ffffff;
+            margin: 20px 0;
+            overflow:hidden;
+        }
+        
+        .loading-progress {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #39d624, #39d624);
+            transition: width 0.3s ease;
+        }
+        
+        .password-container {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+           
+        }
+        
+        .password-container.active {
+            max-height: 200px;
+            opacity: 1;
+            margin-top: 20px;
+           
+        }
+        
+        input {
+            width: 60%;
+            padding: 5px;
+            margin: 10px 0;
+            border-color:#c5c4c4;
+            background: #c5c4c4;
+            color: #312f2f;
+            font-size: 16px;
+            outline:none;
+            
+        }
+        
+       
+        
+        
+        
+       
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #569cd6;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: linear-gradient(90deg, #569cd6, #569cd6);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .content.active {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 20px;
+        }
+        
+        .error-message {
+            color: #d65656;
+            margin-top: 10px;
+            font-size: 14px;
+            min-height: 20px;
+        }
+        
+        h1 {
+            margin-bottom: 10px;
+            color: #569cd6;
+        }
+        
+        p {
+            color: #6e6e6e;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="loading-container">
+            <h1>BIT CODEU</h1>
+            <div class="loading-text" id="status">Inicializando sistema...</div>
+            <div class="loading-bar">
+                <div class="loading-progress" id="loadingBar"></div>
+            </div>
+        </div>
+        
+        <div class="password-container" id="passwordContainer">
+            <p>Ingresa el Contenedor</p>
+            <input type="password" id="passwordInput" placeholder="">
+            <div class="error-message" id="errorMessage"></div>
+            
+            
+        </div>
+        <button id="submitBtn">Ingresar al sistema</button>
+        <div class="content" id="content">
+            <h1>¡Bienvenido!</h1>
+            <p>Acceso concedido. Contenido seguro cargado correctamente.</p>
+            <p id="secretContent" style="color: #4ecdc4; font-weight: bold; margin-top: 20px;"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingBar = document.getElementById('loadingBar');
+            const passwordContainer = document.getElementById('passwordContainer');
+            const content = document.getElementById('content');
+            const passwordInput = document.getElementById('passwordInput');
+            const submitBtn = document.getElementById('submitBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            const secretContent = document.getElementById('secretContent');
+
+            // Contraseña válida (puedes cambiarla)
+            const VALID_PASSWORD = "10.20.2025";
+            
+            // Simular loading inteligente
+            setTimeout(() => {
+                // Primera fase del loading (0-50%)
+                loadingBar.style.width = '1%';
+                
+                setTimeout(() => {
+                    // Mostrar campo de contraseña después de cierta carga
+                    passwordContainer.classList.add('active');
+                    
+                    // Segunda fase del loading (50-80%)
+                    loadingBar.style.width = '1%';
+                    
+                }, 1000);
+            }, 500);
+            
+            // Manejar envío de contraseña
+            submitBtn.addEventListener('click', validatePassword);
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    validatePassword();
+                }
+            });
+            
+            
+            function validatePassword() {
+                if (passwordInput.value === VALID_PASSWORD) {
+                    errorMessage.textContent = '';
+                    passwordContainer.classList.remove('active');
+
+                    loadingBar.style.width = '100%';
+                    loadingBar.style.background = 'linear-gradient(90deg, #39d624, #39d624)';
+                    
+                    // Mostrar contenido después de validación exitosa
+                    setTimeout(() => {
+                // Cambia esta URL por la de tu sistema real
+                window.location.href = "index.html";
+            }, 1500);
+        }
+     
+
+        else  {
+                    errorMessage.textContent = 'Conexcion no establesida';
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

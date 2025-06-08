@@ -7,40 +7,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-   
-    <div class="login-container">
 
+    <div id="window">
         <div id="buttons"> 
-            <img src="BDU.png" width="400px" class="img" >
-          
-        </div>
-       
+
+        <a href="#" id="minimize"></a>
+        <a href="#" id="resize"></a>
+        <a href="#" id="close"></a>
+    </div>
+
+        <div id="title">Bienvenido...</div> 
+    <div class="dashboard-container">
         
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="email"></label>
-                <input type="email" id="email" name="email" placeholder="Usuario" required>
-                <div class="error-message" id="emailError"></div>
-            </div>
-            
-            <div class="form-group">
-                <label for="password"></label>
-                <input type="password" id="password" name="password" placeholder="Contraseña" required>
-                <div class="error-message" id="passwordError"></div>
-            </div>
-            
-            <button type="submit" class="btn">Ingresar al Sistema...</button>
-            
-            <div class="form-footer">
-                <p>¿No tienes una cuenta? <a href="register.html">Regístrate aquí</a></p>
-                <p><a href="#" id="forgotPassword"></a></p>
-            </div>
-        </form>
+        <h1><span id="userName"></span>!</h1>
+        <p>Has iniciado correctamente.</p>
+        
+        <button id="logoutBtn" class="btn">Ingresar</button>
     </div>
     
     <script src="auth.js"></script>
     <style>
-       * {
+        * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -49,7 +36,7 @@
 
 body {
     font-family: Arial,sans-serif;
-    background:transparent;
+    background: url(https://4kwallpapers.com/images/walls/thumbs_3t/3773.jpg);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,30 +45,34 @@ body {
 }
 
 
-#buttons{
-    float: center;
-    margin-right: 12px;
-}
-
-
-
 .login-container,.dashboard-container {
+    
     backdrop-filter: blur(5px);
-    padding: 1rem;
+    padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
     width: 100%;
-    max-width: 470px;
-    background:#3498db;;
+    max-width: 400px;
+    background:rgba(255, 255, 255, 0.1) ;
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.2);
-  
 }
 
 
 
+h1 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #3d96d1 ;
+}
 
-
+.dashboard-container p{
+    text-align: center;
+    color: #2266e4;
+}
+.dashboard-container h1{
+  color: #928d8d;  
+}
 .form-group {
     margin-bottom: 1rem;
 }
@@ -96,23 +87,19 @@ label {
 }
 
 input {
-    width: 60%;
+    width: 70%;
     padding: 0.19rem;
-    border: 1px solid #af9d9d ;
+    border: 1px solid #ffffff ;
+    border-radius: 4px;
+    font-size: 1rem;
    background-color: #ffffff;
-    color:#ffffff;
-    margin: 0 auto;
-   float: center;
+    color:#76797a;
 }
+
 
 input:focus {
     outline: none;
-    border-color: #ffffff;
-    background: transparent;
-}
-
-input:hover{
-    background: transparent;
+    border-color: #fcfeff;
 }
 
 .btn {
@@ -121,15 +108,14 @@ input:hover{
     background-color: #3498db;
     color: white;
     border: none;
+    border-radius: 4px;
     font-size: 1rem;
     cursor: pointer;
     margin-top: 1rem;
 }
 
 .btn:hover {
-    background:#ffffff;
-    color: #1ca0dd;
-    box-shadow: 0px 15px 20px rgba(255, 255, 255, 0.4)
+    background-color: #2980b9;
 }
 
 .form-footer {
@@ -140,14 +126,12 @@ input:hover{
 }
 
 .form-footer a {
-    color: #030303;
-    text-decoration:none;
+    color: #3d96d1;
+    text-decoration: none;
 }
 
 .form-footer a:hover {
     text-decoration: underline;
-   color: #ffffff;
-   box-shadow: 0px 15px 20px rgba(243, 243, 243, 0.4)
 }
 
 .error-message {
@@ -166,10 +150,54 @@ input:hover{
 #strengthMeter {
     color: #ffffff;
     font-weight: bold;
-} 
+}
+
+
+
+#window{
+    width: 340px;
+    background:#ffffff ;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    padding: 12px 0;
+font-family: verdana,sans-serif;
+color: #333;
+
+}
+
+#buttons{
+    float: right;
+    margin-right: 12px;
+}
+
+#buttons a {
+width: 16px;
+height: 16px;
+border-radius: 50%;
+display: inline-block;
+}
+
+#minimize {
+    background: #3c6;
+}
+
+#resize{
+background: #cc3;
+}
+
+#close{
+    background: #c33;
+}
+#title{
+    margin-left: 2px;
+    color: #2266e4;
+    padding: 5px;
+}
     </style>
-   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
     // Verificar si estamos en la página de login
     if (document.getElementById('loginForm')) {
         const loginForm = document.getElementById('loginForm');
@@ -289,7 +317,7 @@ input:hover{
         // Logout
         document.getElementById('logoutBtn').addEventListener('click', function() {
             localStorage.removeItem('currentUser');
-            window.location.href = 'dashboard.html';
+            window.location.href = 'indexx.html';
         });
     }
     
@@ -327,7 +355,7 @@ input:hover{
         }
     }
 });
-   </script>
+    </script>
 </body>
 </html>
 
